@@ -1,0 +1,19 @@
+name: uptime
+# Two jobs in one: an uptime check on the live API and web every 10 minutes (a failed run emails the
+# repo owner), and it keeps the free Render instance from spinning down in front of a visitor.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: API readiness
+        run: |
+          body=$(curl -sS -m 90 https://siyana-api.onrender.com/health/ready)
+          echo "$body"
+          echo "$body" | grep -q '"ready":true'
+      - name: Web renders live counts
+        run: curl -sS -m 60 https://siyana-six.vercel.app/ | grep -q "open defects"
