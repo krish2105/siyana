@@ -5,10 +5,10 @@ Every claim links to something you can open.
 
 | Lens | Score | One-line verdict |
 |---|---|---|
-| Real deployed MVP | **84** | Web, API and database are live on public URLs with the real 107k-snag corpus, every module answers, and the judge runs end to end. Free-tier limits cap what the hosted API can serve. |
+| Real deployed MVP | **86** | Web, API and database are live on public URLs with the real 107k-snag corpus, every module answers, and the judge runs end to end. Free-tier limits cap what the hosted API can serve. |
 | SaaS ready | **64** | Evidence trail, licensed approvals, API-key auth, rate limits, request ids, CI, weekly ingest and uptime checks exist. No tenancy, login, billing or SLA yet. |
 | Pitch ready | **90** | Pitch page, one-pager, six-minute demo mode, measured numbers against baselines, viva answers, live links. The Claude judge result is the one number a sharp listener will ask for. |
-| **Overall (0.4 / 0.3 / 0.3)** | **80** | |
+| **Overall (0.4 / 0.3 / 0.3)** | **81** | |
 
 ## What is live
 
@@ -19,7 +19,7 @@ Every claim links to something you can open.
 | https://siyana-api.onrender.com/docs | OpenAPI reference; `/health/ready` reports corpus counts, judge, backend and auth mode |
 | https://github.com/krish2105/siyana | Public repository, CI badge, release `models-v1` with the trained weights |
 
-Verified on 2026-09-09: `GET /fleet/summary` returns the fleet; `POST /daleel/judge` on a pasted snag returns 20 neighbours, a verdict and an evidence id; the Gantt shows *Short 18 h of B1.1 on day 2*.
+Verified on 2026-09-09: Lighthouse on the live site scores 93 / 100 / 100 / 100 (desktop) and 90 / 100 / 100 / 100 (360 px mobile, simulated 4G) with zero layout shift; CI is green; the weekly ingest workflow ran against production; `GET /fleet/summary` returns the fleet; `POST /daleel/judge` on a pasted snag returns 20 neighbours, a verdict and an evidence id; the Gantt shows *Short 18 h of B1.1 on day 2*.
 
 ## Where the points went
 

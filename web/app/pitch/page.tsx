@@ -100,7 +100,7 @@ export default async function PitchPage() {
           <article className="bay p-4">
             <p className="placard text-ink-muted">MIRAAT · control room</p>
             <p className="mt-2 text-sm text-ink">Fleet plan view in 3D with an accessible SVG fallback, recurring signatures, RUL watchlist, hangar Gantt, draft queue and a &ldquo;Why?&rdquo; on every AI value. Hangar theme for the night shift, Ramp for the day shift on a tablet.</p>
-            <p className="code mt-3 text-xs text-ink-muted">Lighthouse 100 / 100 / 100 desktop · 89 / 100 / 100 at 360 px</p>
+            <p className="code mt-3 text-xs text-ink-muted">Lighthouse on the live site: 93 / 100 / 100 / 100 desktop · 90 / 100 / 100 / 100 at 360 px</p>
           </article>
         </div>
       </section>

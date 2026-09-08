@@ -121,12 +121,15 @@ Lighthouse 12, headless Chrome, production build served by `next start`. Reports
 
 | Form factor | Performance | Accessibility | Best practices | LCP | TBT | CLS |
 |---|---|---|---|---|---|---|
-| Desktop | 100 | 100 | 100 | 0.7 s | 0 ms | 0 |
-| Mobile, 360 px, simulated throttling | 89 | 100 | 100 | 3.6 s | 140 ms | 0 |
+| Desktop, local production server | 100 | 100 | 100 | 0.7 s | 0 ms | 0 |
+| Mobile 360 px, local production server, simulated 4G | 89 | 100 | 100 | 3.6 s | 140 ms | 0 |
+| Desktop, live site (siyana-six.vercel.app, API on Render) | 93 | 100 | 100 | 0.6 s | 0 ms | 0 |
+| Mobile 360 px, live site, simulated 4G | 90 | 100 | 100 | 2.9 s | 130 ms | 0 |
 
-An earlier run showed CLS 0.91 on desktop: the command bar wrapped onto a second line while the
-placard font swapped in, moving everything below it. The bar no longer wraps at desktop widths and the
-hero has a fixed box for both the SVG and the 3D scene, so the shift is gone. The one remaining
+Two earlier runs showed CLS 0.9: first the command bar wrapping as the placard font swapped in, then,
+on Vercel only, the header streaming in behind a Suspense boundary after the body had painted. The bar
+no longer wraps at desktop widths, the hero has a fixed box for both the SVG and the 3D scene, and the
+shell renders inline, so the shift is gone on both hosts. The one remaining
 mobile point is largest-contentful-paint under simulated 4G on a page that ships live fleet data; the
 3D bundle is never loaded below 768 px. Contrast for every text/background token pair in both themes
 is checked by `web/scripts/contrast.mjs` (all text pairs ≥ 4.5:1).

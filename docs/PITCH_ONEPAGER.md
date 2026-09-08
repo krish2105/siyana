@@ -17,7 +17,7 @@ evidence row behind every recommendation.
 | DALEEL (agentic) | Normalises snags, classifies ATA chapter, retrieves same-type same-chapter neighbours, judges whether it is the same defect signature, drafts the rectification card with citations. Cards stay DRAFT until a licensed engineer signs. | Judge P 0.91 / R 0.73 on 300 hand-labelled pairs; ATA macro-F1 0.81 |
 | AJAL (forecast + optimise) | Remaining useful life per engine, then a CP-SAT hangar schedule constrained on due dates, ATA-capable bays and licences. Infeasibility is reported as "short 18 h of B1.1 on day 2". | RMSE 15.4 and NASA score 464 on C-MAPSS FD001, beating a GRU and a constant baseline |
 | NAZAR (vision) | Detector for known defect classes plus an anomaly head trained only on serviceable surfaces so novel damage surfaces for review. | Anomaly AUROC 0.97 on four MVTec categories |
-| MIRAAT (control room) | One screen: fleet plan view, recurring signatures, RUL watchlist, hangar Gantt, draft queue, evidence "Why?" on everything. Hangar and Ramp themes. | Lighthouse 100 / 100 / 100 on desktop |
+| MIRAAT (control room) | One screen: fleet plan view, recurring signatures, RUL watchlist, hangar Gantt, draft queue, evidence "Why?" on everything. Hangar and Ramp themes. | Live site Lighthouse 93 / 100 / 100 / 100 desktop, 90 / 100 / 100 / 100 mobile |
 
 ## Why it is credible to a Part-145 quality manager
 
