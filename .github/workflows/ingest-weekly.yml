@@ -24,6 +24,7 @@ jobs:
       SIYANA_EMBED_BACKEND: fastembed
       SIYANA_ATA_CLASSIFIER: "0"
       SIYANA_SKIP_VECTOR_INDEX: "1"
+      SIYANA_INGEST_FAMILIES: "B737,A320,A321,A319,E170,E190,CRJ"   # the deployed narrow-body corpus; unset for everything
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

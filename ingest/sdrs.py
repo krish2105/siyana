@@ -15,6 +15,7 @@ Run: .venv/bin/python -m ingest.sdrs --from 2024-01-01 --to 2025-12-31 [--days 7
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 import time
@@ -214,6 +215,10 @@ def severity_prior(rec: SdrsRecord) -> str:
 
 
 def load(records: list[SdrsRecord], session: Session, run_id: int | None) -> int:
+    # Optional family filter for small hosted databases: SIYANA_INGEST_FAMILIES="B737,A320,A321"
+    families = {f.strip().upper() for f in os.environ.get("SIYANA_INGEST_FAMILIES", "").split(",") if f.strip()}
+    if families:
+        records = [r for r in records if aircraft_family(r.aircraft_model) in families]
     known = {c for (c,) in session.execute(select(AtaChapter.code))}
     tails: dict[str, dict] = {}
     for r in records:
