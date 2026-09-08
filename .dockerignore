@@ -1,0 +1,10 @@
+.venv
+web/node_modules
+web/.next
+data/raw
+data/processed
+data/logs
+data/models/*.joblib
+data/models/*.pt
+data/models/rtdetr_defects
+.git

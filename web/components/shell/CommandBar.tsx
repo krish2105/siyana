@@ -34,6 +34,10 @@ export function CommandBar({ summary }: { summary: Summary | null }) {
           ))}
         </dl>
 
+        <nav aria-label="Pages" className="hidden items-center gap-1 lg:flex">
+          <Link href="/inspect" className="placard rounded-[3px] px-2 py-2 text-ink-muted hover:text-ink">Inspect</Link>
+          <Link href="/audit" className="placard rounded-[3px] px-2 py-2 text-ink-muted hover:text-ink">Audit</Link>
+        </nav>
         <div className="ml-auto flex items-center gap-2">
           <button
             type="button"
