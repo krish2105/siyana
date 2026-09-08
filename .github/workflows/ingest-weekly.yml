@@ -7,8 +7,14 @@ on:
   workflow_dispatch:
     inputs:
       days:
-        description: "How many days back to pull"
+        description: "How many days back to pull (ignored when from/to are set)"
         default: "7"
+      from:
+        description: "Backfill start date YYYY-MM-DD (optional)"
+        default: ""
+      to:
+        description: "Backfill end date YYYY-MM-DD (optional)"
+        default: ""
 jobs:
   ingest:
     runs-on: ubuntu-latest
@@ -25,14 +31,18 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements-render.txt
-      - name: Pull the last week of SDRS
+      - name: Pull SDRS (last week, or the backfill range given)
         run: |
           DAYS="${{ github.event.inputs.days || '7' }}"
-          FROM=$(date -u -d "-$DAYS days" +%Y-%m-%d); TO=$(date -u -d "-1 day" +%Y-%m-%d)
+          FROM="${{ github.event.inputs.from }}"; TO="${{ github.event.inputs.to }}"
+          if [ -z "$FROM" ]; then FROM=$(date -u -d "-$DAYS days" +%Y-%m-%d); fi
+          if [ -z "$TO" ]; then TO=$(date -u -d "-1 day" +%Y-%m-%d); fi
           python -m ingest.sdrs --from "$FROM" --to "$TO" --days 7
       - run: python -m services.daleel.embed
       - run: python -m ingest.fleet --families A320 A321 B737 --n 24
       - run: python -m services.daleel.recurrence --limit 300
+      - run: python -m ingest.cmapss
+      - run: python -m services.ajal.watchlist
       - run: python -m services.ajal.seed_schedule
       - name: Readiness after refresh
         run: python -c "from services.gateway.main import ready; print(ready())"
