@@ -1,0 +1,238 @@
+code,chapter,title,system
+0500,05,Time Limits / Maintenance Checks,General
+0600,06,Dimensions and Areas,General
+0700,07,Lifting and Shoring,General
+0800,08,Leveling and Weighing,General
+0900,09,Towing and Taxiing,General
+1000,10,"Parking, Mooring, Storage",General
+1100,11,Placards and Markings,General
+1200,12,Servicing,General
+1400,14,Hardware,General
+1800,18,Vibration and Noise Analysis,General
+2000,20,Standard Practices - Airframe,Airframe systems
+2100,21,Air Conditioning,Airframe systems
+2110,21,Air Conditioning - Compression,Airframe systems
+2120,21,Air Conditioning - Distribution,Airframe systems
+2130,21,Air Conditioning - Pressurization Control,Airframe systems
+2140,21,Air Conditioning - Heating,Airframe systems
+2150,21,Air Conditioning - Cooling,Airframe systems
+2160,21,Air Conditioning - Temperature Control,Airframe systems
+2170,21,Air Conditioning - Moisture / Air Contaminant Control,Airframe systems
+2200,22,Auto Flight,Airframe systems
+2210,22,Auto Flight - Autopilot,Airframe systems
+2220,22,Auto Flight - Speed-Attitude Correction,Airframe systems
+2230,22,Auto Flight - Auto Throttle,Airframe systems
+2240,22,Auto Flight - System Monitor,Airframe systems
+2300,23,Communications,Airframe systems
+2310,23,Communications - Speech Communications,Airframe systems
+2320,23,Communications - Data Transmission,Airframe systems
+2330,23,Communications - Passenger Address / Entertainment,Airframe systems
+2340,23,Communications - Interphone,Airframe systems
+2350,23,Communications - Audio Integrating,Airframe systems
+2360,23,Communications - Static Discharging,Airframe systems
+2370,23,Communications - Audio / Video Monitoring,Airframe systems
+2400,24,Electrical Power,Airframe systems
+2410,24,Electrical Power - Generator Drive,Airframe systems
+2420,24,Electrical Power - AC Generation,Airframe systems
+2430,24,Electrical Power - DC Generation,Airframe systems
+2440,24,Electrical Power - External Power,Airframe systems
+2450,24,Electrical Power - AC Electrical Load Distribution,Airframe systems
+2460,24,Electrical Power - DC Electrical Load Distribution,Airframe systems
+2500,25,Equipment / Furnishings,Airframe systems
+2510,25,Equipment / Furnishings - Flight Compartment,Airframe systems
+2520,25,Equipment / Furnishings - Passenger Compartment,Airframe systems
+2530,25,Equipment / Furnishings - Buffet / Galley,Airframe systems
+2540,25,Equipment / Furnishings - Lavatories,Airframe systems
+2550,25,Equipment / Furnishings - Cargo Compartments,Airframe systems
+2560,25,Equipment / Furnishings - Emergency,Airframe systems
+2570,25,Equipment / Furnishings - Accessory Compartments,Airframe systems
+2600,26,Fire Protection,Airframe systems
+2610,26,Fire Protection - Detection,Airframe systems
+2620,26,Fire Protection - Extinguishing,Airframe systems
+2630,26,Fire Protection - Explosion Suppression,Airframe systems
+2700,27,Flight Controls,Airframe systems
+2710,27,Flight Controls - Aileron and Tab,Airframe systems
+2720,27,Flight Controls - Rudder and Tab,Airframe systems
+2730,27,Flight Controls - Elevator and Tab,Airframe systems
+2740,27,Flight Controls - Horizontal Stabilizer,Airframe systems
+2750,27,Flight Controls - Flaps,Airframe systems
+2760,27,"Flight Controls - Spoiler, Drag Devices, Fairings",Airframe systems
+2770,27,Flight Controls - Gust Lock and Damper,Airframe systems
+2780,27,Flight Controls - Lift Augmenting,Airframe systems
+2800,28,Fuel,Airframe systems
+2810,28,Fuel - Storage,Airframe systems
+2820,28,Fuel - Distribution,Airframe systems
+2830,28,Fuel - Dump,Airframe systems
+2840,28,Fuel - Indicating,Airframe systems
+2900,29,Hydraulic Power,Airframe systems
+2910,29,Hydraulic Power - Main,Airframe systems
+2920,29,Hydraulic Power - Auxiliary,Airframe systems
+2930,29,Hydraulic Power - Indicating,Airframe systems
+3000,30,Ice and Rain Protection,Airframe systems
+3010,30,Ice and Rain Protection - Airfoil,Airframe systems
+3020,30,Ice and Rain Protection - Air Intakes,Airframe systems
+3030,30,Ice and Rain Protection - Pitot and Static,Airframe systems
+3040,30,"Ice and Rain Protection - Windows, Windshields, Doors",Airframe systems
+3050,30,Ice and Rain Protection - Antennas and Radomes,Airframe systems
+3060,30,Ice and Rain Protection - Propellers / Rotors,Airframe systems
+3070,30,Ice and Rain Protection - Water Lines,Airframe systems
+3080,30,Ice and Rain Protection - Detection,Airframe systems
+3100,31,Indicating / Recording Systems,Airframe systems
+3110,31,Indicating / Recording Systems - Instrument and Control Panels,Airframe systems
+3120,31,Indicating / Recording Systems - Independent Instruments,Airframe systems
+3130,31,Indicating / Recording Systems - Recorders,Airframe systems
+3140,31,Indicating / Recording Systems - Central Computers,Airframe systems
+3150,31,Indicating / Recording Systems - Central Warning Systems,Airframe systems
+3160,31,Indicating / Recording Systems - Central Display Systems,Airframe systems
+3170,31,Indicating / Recording Systems - Automatic Data Reporting,Airframe systems
+3200,32,Landing Gear,Airframe systems
+3210,32,Landing Gear - Main Gear and Doors,Airframe systems
+3220,32,Landing Gear - Nose Gear and Doors,Airframe systems
+3230,32,Landing Gear - Extension and Retraction,Airframe systems
+3240,32,Landing Gear - Wheels and Brakes,Airframe systems
+3250,32,Landing Gear - Steering,Airframe systems
+3260,32,Landing Gear - Position and Warning,Airframe systems
+3270,32,Landing Gear - Supplementary Gear,Airframe systems
+3300,33,Lights,Airframe systems
+3310,33,Lights - Flight Compartment,Airframe systems
+3320,33,Lights - Passenger Compartments,Airframe systems
+3330,33,Lights - Cargo and Service Compartments,Airframe systems
+3340,33,Lights - Exterior,Airframe systems
+3350,33,Lights - Emergency Lighting,Airframe systems
+3400,34,Navigation,Airframe systems
+3410,34,Navigation - Flight Environment Data,Airframe systems
+3420,34,Navigation - Attitude and Direction,Airframe systems
+3430,34,Navigation - Landing and Taxiing Aids,Airframe systems
+3440,34,Navigation - Independent Position Determining,Airframe systems
+3450,34,Navigation - Dependent Position Determining,Airframe systems
+3460,34,Navigation - Flight Management Computing,Airframe systems
+3500,35,Oxygen,Airframe systems
+3510,35,Oxygen - Crew,Airframe systems
+3520,35,Oxygen - Passenger,Airframe systems
+3530,35,Oxygen - Portable,Airframe systems
+3600,36,Pneumatic,Airframe systems
+3610,36,Pneumatic - Distribution,Airframe systems
+3620,36,Pneumatic - Indicating,Airframe systems
+3700,37,Vacuum,Airframe systems
+3800,38,Water / Waste,Airframe systems
+3810,38,Water / Waste - Potable,Airframe systems
+3820,38,Water / Waste - Wash,Airframe systems
+3830,38,Water / Waste - Waste Disposal,Airframe systems
+3840,38,Water / Waste - Air Supply,Airframe systems
+4400,44,Cabin Systems,Airframe systems
+4500,45,Central Maintenance System,Airframe systems
+4600,46,Information Systems,Airframe systems
+4700,47,Nitrogen Generation System,Airframe systems
+4900,49,Airborne Auxiliary Power,Airframe systems
+4910,49,Airborne Auxiliary Power - Power Plant,Airframe systems
+4920,49,Airborne Auxiliary Power - Engine,Airframe systems
+4930,49,Airborne Auxiliary Power - Engine Fuel and Control,Airframe systems
+4940,49,Airborne Auxiliary Power - Ignition / Starting,Airframe systems
+4950,49,Airborne Auxiliary Power - Air,Airframe systems
+4960,49,Airborne Auxiliary Power - Engine Controls,Airframe systems
+4970,49,Airborne Auxiliary Power - Indicating,Airframe systems
+4980,49,Airborne Auxiliary Power - Exhaust,Airframe systems
+4990,49,Airborne Auxiliary Power - Oil,Airframe systems
+5100,51,Standard Practices - Structures,Structures
+5200,52,Doors,Structures
+5210,52,Doors - Passenger / Crew,Structures
+5220,52,Doors - Emergency Exit,Structures
+5230,52,Doors - Cargo,Structures
+5240,52,Doors - Service,Structures
+5250,52,Doors - Fixed Interior,Structures
+5260,52,Doors - Entrance Stairs,Structures
+5270,52,Doors - Door Warning,Structures
+5280,52,Doors - Landing Gear,Structures
+5300,53,Fuselage,Structures
+5310,53,Fuselage - Main Frame,Structures
+5320,53,Fuselage - Auxiliary Structure,Structures
+5330,53,Fuselage - Plates / Skin,Structures
+5340,53,Fuselage - Attach Fittings,Structures
+5350,53,Fuselage - Aerodynamic Fairings,Structures
+5400,54,Nacelles / Pylons,Structures
+5410,54,Nacelles / Pylons - Main Frame,Structures
+5420,54,Nacelles / Pylons - Auxiliary Structure,Structures
+5430,54,Nacelles / Pylons - Plates / Skin,Structures
+5440,54,Nacelles / Pylons - Attach Fittings,Structures
+5450,54,Nacelles / Pylons - Fillets / Fairings,Structures
+5500,55,Stabilizers,Structures
+5510,55,Stabilizers - Horizontal Stabilizer,Structures
+5520,55,Stabilizers - Elevator,Structures
+5530,55,Stabilizers - Vertical Stabilizer,Structures
+5540,55,Stabilizers - Rudder,Structures
+5550,55,Stabilizers - Attach Fittings,Structures
+5600,56,Windows,Structures
+5610,56,Windows - Flight Compartment,Structures
+5620,56,Windows - Cabin,Structures
+5630,56,Windows - Door,Structures
+5640,56,Windows - Inspection and Observation,Structures
+5700,57,Wings,Structures
+5710,57,Wings - Center Wing,Structures
+5720,57,Wings - Outer Wing,Structures
+5730,57,Wings - Wing Tip,Structures
+5740,57,Wings - Leading Edge and Leading Edge Devices,Structures
+5750,57,Wings - Trailing Edge and Trailing Edge Devices,Structures
+5760,57,Wings - Ailerons and Elevons,Structures
+5770,57,Wings - Spoilers,Structures
+6100,61,Propellers / Propulsors,Propeller / Rotor
+6110,61,Propellers / Propulsors - Propeller Assembly,Propeller / Rotor
+6120,61,Propellers / Propulsors - Controlling,Propeller / Rotor
+6130,61,Propellers / Propulsors - Braking,Propeller / Rotor
+6140,61,Propellers / Propulsors - Indicating,Propeller / Rotor
+6200,62,Main Rotor,Propeller / Rotor
+6300,63,Main Rotor Drive,Propeller / Rotor
+6400,64,Tail Rotor,Propeller / Rotor
+6500,65,Tail Rotor Drive,Propeller / Rotor
+6700,67,Rotors Flight Control,Propeller / Rotor
+7100,71,Power Plant,Power plant
+7110,71,Power Plant - Cowling,Power plant
+7120,71,Power Plant - Mounts,Power plant
+7130,71,Power Plant - Fireseals,Power plant
+7140,71,Power Plant - Attach Fittings,Power plant
+7150,71,Power Plant - Electrical Harness,Power plant
+7160,71,Power Plant - Air Intakes,Power plant
+7170,71,Power Plant - Engine Drains,Power plant
+7200,72,Engine (Turbine / Turboprop),Power plant
+7210,72,Engine (Turbine / Turboprop) - Reduction Gear / Shaft,Power plant
+7220,72,Engine (Turbine / Turboprop) - Air Inlet Section,Power plant
+7230,72,Engine (Turbine / Turboprop) - Compressor Section,Power plant
+7240,72,Engine (Turbine / Turboprop) - Combustion Section,Power plant
+7250,72,Engine (Turbine / Turboprop) - Turbine Section,Power plant
+7260,72,Engine (Turbine / Turboprop) - Accessory Drives,Power plant
+7270,72,Engine (Turbine / Turboprop) - By-pass Section,Power plant
+7300,73,Engine Fuel and Control,Power plant
+7310,73,Engine Fuel and Control - Distribution,Power plant
+7320,73,Engine Fuel and Control - Controlling,Power plant
+7330,73,Engine Fuel and Control - Indicating,Power plant
+7400,74,Ignition,Power plant
+7410,74,Ignition - Electrical Power Supply,Power plant
+7420,74,Ignition - Distribution,Power plant
+7430,74,Ignition - Switching,Power plant
+7500,75,Air (Engine),Power plant
+7510,75,Air (Engine) - Engine Anti-Icing,Power plant
+7520,75,Air (Engine) - Cooling,Power plant
+7530,75,Air (Engine) - Compressor Control,Power plant
+7540,75,Air (Engine) - Indicating,Power plant
+7600,76,Engine Controls,Power plant
+7610,76,Engine Controls - Power Control,Power plant
+7620,76,Engine Controls - Emergency Shutdown,Power plant
+7700,77,Engine Indicating,Power plant
+7710,77,Engine Indicating - Power,Power plant
+7720,77,Engine Indicating - Temperature,Power plant
+7730,77,Engine Indicating - Analyzers,Power plant
+7740,77,Engine Indicating - Integrated Engine Instrument Systems,Power plant
+7800,78,Exhaust,Power plant
+7810,78,Exhaust - Collector / Nozzle,Power plant
+7820,78,Exhaust - Noise Suppressor,Power plant
+7830,78,Exhaust - Thrust Reverser,Power plant
+7840,78,Exhaust - Supplementary Air,Power plant
+7900,79,Oil,Power plant
+7910,79,Oil - Storage,Power plant
+7920,79,Oil - Distribution,Power plant
+7930,79,Oil - Indicating,Power plant
+8000,80,Starting,Power plant
+8010,80,Starting - Cranking,Power plant
+8100,81,Turbines (Reciprocating),Power plant
+8200,82,Water Injection,Power plant
+8300,83,Accessory Gearboxes,Power plant
+8500,85,Reciprocating Engine,Power plant
