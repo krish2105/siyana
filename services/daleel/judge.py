@@ -31,7 +31,7 @@ Return matched_ids only for entries that match; an empty list means no recurrenc
 signature: at most 12 words naming the canonical defect. reasoning: at most 40 words.
 """
 
-EMBEDDING_THRESHOLD = 0.82
+EMBEDDING_THRESHOLD = 0.775  # tuned on the 60-pair dev split: highest recall with precision >= 0.90 (see EVALUATION.md)
 
 
 class Verdict(BaseModel):
@@ -102,7 +102,7 @@ class EmbeddingJudge:
                 matched_ids=[],
                 signature=" ".join(candidate.split()[:12]),
                 reasoning=f"Best cosine similarity {best:.2f} below threshold {self.threshold}.",
-                confidence=float(min(0.95, 1.0 - best)) if neighbours else 0.5,
+                confidence=float(min(0.95, max(0.0, 1.0 - best))) if neighbours else 0.5,
             )
         top = max(matched, key=lambda n: n.similarity)
         return Verdict(
@@ -110,7 +110,7 @@ class EmbeddingJudge:
             matched_ids=[n.id for n in matched],
             signature=" ".join((top.norm_text or top.text).split()[:12]),
             reasoning=f"{len(matched)} neighbour(s) at cosine >= {self.threshold}; best {top.similarity:.2f}.",
-            confidence=float(top.similarity),
+            confidence=float(min(1.0, max(0.0, top.similarity))),
         )
 
 

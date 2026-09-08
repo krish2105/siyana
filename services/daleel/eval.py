@@ -131,6 +131,19 @@ def evaluate(judges: list[Judge] | None = None) -> dict:
         },
         "per_stratum": {},
     }
+    # Operating-point sweep for the embedding judge: the production setting is the highest-recall
+    # threshold that keeps dev precision >= 0.90, because a false recurrence is a false alert.
+    sweep = []
+    for th in np.round(np.arange(0.55, 0.96, 0.025), 3):
+        p_dev = cos[dev] >= th
+        p_test = cos[test] >= th
+        sweep.append({"threshold": float(th), "dev": _prf(y[dev], p_dev), "test": _prf(y[test], p_test)})
+    ok = [s for s in sweep if s["dev"]["precision"] >= 0.90]
+    rec = max(ok, key=lambda s: (s["dev"]["recall"], -s["threshold"])) if ok else max(sweep, key=lambda s: s["dev"]["f1"])
+    results["embedding_judge_sweep"] = sweep
+    results["recommended_embedding_threshold"] = rec["threshold"]
+    results["recommended_embedding_threshold_test"] = rec["test"]
+
     for j in judges or [EmbeddingJudge()]:
         preds = []
         for i in range(len(df)):
