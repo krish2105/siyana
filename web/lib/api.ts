@@ -1,6 +1,8 @@
 /** Typed client for the SIYANA gateway. Server components call these with no-store caching. */
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+// Production default is the Render service; override with NEXT_PUBLIC_API_URL for any other host.
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? (process.env.NODE_ENV === "production" ? "https://siyana-api.onrender.com" : "http://localhost:8000");
 
 export type Summary = {
   tails: number;

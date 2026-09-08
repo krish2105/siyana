@@ -6,6 +6,7 @@ command palette with pasted text and never stores a snag.
 """
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
@@ -42,8 +43,11 @@ _classifier: AtaClassifier | None = None
 
 def classifier() -> AtaClassifier | None:
     global _classifier
-    if _classifier is None and MODEL_PATH.exists():
-        _classifier = AtaClassifier()
+    if _classifier is None and os.environ.get("SIYANA_ATA_CLASSIFIER", "1") != "0":
+        from services.common.artefacts import ensure_artefact
+
+        if ensure_artefact(MODEL_PATH.name) is not None:
+            _classifier = AtaClassifier()
     return _classifier
 
 

@@ -32,8 +32,16 @@ class Finding:
 
 class Nazar:
     def __init__(self, detector_dir: Path = DETECTOR_DIR, anomaly_bank: Path | None = None, anomaly_margin: float = 1.25):
+        from services.common.artefacts import ensure_artefact
+
         self.detector = None
         self.detector_version = "detector/none"
+        if not (detector_dir / "meta.json").exists():
+            ensure_artefact("rtdetr_defects")
+        if anomaly_bank is None and not ANOMALY_BANKS:
+            fetched = ensure_artefact("patchcore_metal_nut.pt")
+            if fetched:
+                ANOMALY_BANKS.append(fetched)
         if (detector_dir / "meta.json").exists():
             from services.nazar.detector import RTDetrDetector
 

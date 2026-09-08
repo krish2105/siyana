@@ -2,10 +2,11 @@
 services:
   - type: web
     name: siyana-api
-    runtime: docker
-    dockerfilePath: services/gateway/Dockerfile
-    dockerContext: .
-    plan: starter
+    runtime: python
+    buildCommand: pip install -r requirements-render.txt
+    startCommand: python db/migrate.py && uvicorn services.gateway.main:app --host 0.0.0.0 --port $PORT
+    plan: standard
+    region: singapore
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
@@ -17,8 +18,13 @@ services:
       - key: CORS_ORIGINS
         value: https://siyana.vercel.app
       - key: SIYANA_DATA_DIR
-        value: /app/data
+        value: ./data
+      - key: SIYANA_ATA_CLASSIFIER
+        value: "0"
+      - key: PYTHON_VERSION
+        value: "3.12.8"
 databases:
   - name: siyana-db
     plan: basic-256mb
+    region: singapore
     postgresMajorVersion: "16"

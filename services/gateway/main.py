@@ -22,7 +22,13 @@ app = FastAPI(
 )
 
 origins = [o.strip() for o in os.environ.get("CORS_ORIGINS", "http://localhost:3000").split(",") if o.strip()]
-app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_origin_regex=os.environ.get("CORS_ORIGIN_REGEX", r"https://.*\.vercel\.app"),
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(fleet_router)
 app.include_router(daleel_router)
