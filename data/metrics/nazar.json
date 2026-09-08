@@ -1,0 +1,85 @@
+{
+  "patchcore": {
+    "model_version": "nazar-patchcore/wrn50-l2l3-coreset0.1/2026-09",
+    "categories": {
+      "metal_nut": {
+        "category": "metal_nut",
+        "n_train_good": 220,
+        "n_test": 115,
+        "n_test_defective": 93,
+        "image_auroc": 0.9975562072336266,
+        "pixel_aupro": 0.9008774440389954,
+        "threshold_at_5pct_fpr": 2.505002975463867,
+        "fnr_at_5pct_fpr": 0.021505376344086002
+      },
+      "screw": {
+        "category": "screw",
+        "n_train_good": 320,
+        "n_test": 160,
+        "n_test_defective": 119,
+        "image_auroc": 0.9235499077679852,
+        "pixel_aupro": 0.8759385716678747,
+        "threshold_at_5pct_fpr": 2.026918888092041,
+        "fnr_at_5pct_fpr": 0.3025210084033614
+      },
+      "grid": {
+        "category": "grid",
+        "n_train_good": 264,
+        "n_test": 78,
+        "n_test_defective": 57,
+        "image_auroc": 0.9598997493734336,
+        "pixel_aupro": 0.835576547890937,
+        "threshold_at_5pct_fpr": 2.284440040588379,
+        "fnr_at_5pct_fpr": 0.08771929824561409
+      },
+      "tile": {
+        "category": "tile",
+        "n_train_good": 230,
+        "n_test": 117,
+        "n_test_defective": 84,
+        "image_auroc": 1.0,
+        "pixel_aupro": 0.7916084288753803,
+        "threshold_at_5pct_fpr": 2.4846441745758057,
+        "fnr_at_5pct_fpr": 0.0
+      }
+    },
+    "mean_image_auroc": 0.9702514660937613,
+    "mean_pixel_aupro": 0.8510002481182969
+  },
+  "detector": {
+    "model_version": "nazar-rtdetr/r50vd-ft-mvtec-boxes/2026-09",
+    "n_val_images": 61,
+    "n_good_images": 60,
+    "map_50": 0.42828296850982184,
+    "per_class": {
+      "crack": {
+        "ap_50": 0.33618965365047265,
+        "n_gt": 12,
+        "n_pred": 87
+      },
+      "corrosion": {
+        "ap_50": 0.684764636310851,
+        "n_gt": 29,
+        "n_pred": 184
+      },
+      "dent": {
+        "ap_50": 0.1882400333870922,
+        "n_gt": 18,
+        "n_pred": 136
+      },
+      "delamination": {
+        "ap_50": 0.2655803411968789,
+        "n_gt": 40,
+        "n_pred": 150
+      },
+      "missing-fastener": {
+        "ap_50": 0.6666401780038144,
+        "n_gt": 11,
+        "n_pred": 402
+      }
+    },
+    "image_auroc": 0.7300546448087433,
+    "threshold_at_5pct_fpr": 0.5536500215530396,
+    "fnr_at_5pct_fpr": 0.9016393442622951
+  }
+}

@@ -1,8 +1,8 @@
 {
   "model_version": "ata-clf/tfidf-lr/2026-09",
-  "n_train": 47540,
-  "n_test": 11885,
-  "n_classes": 93,
+  "n_train": 105967,
+  "n_test": 26492,
+  "n_classes": 125,
   "top20_classes": [
     "5300",
     "5320",
@@ -17,27 +17,27 @@
     "2120",
     "5730",
     "3300",
-    "5250",
     "5340",
+    "5250",
     "5270",
     "5100",
-    "5220",
     "7200",
+    "5220",
     "5520"
   ],
-  "macro_f1_top20": 0.806409841844997,
-  "macro_f1_all": 0.6720893670515908,
-  "accuracy_4digit": 0.7883045856121161,
-  "accuracy_chapter": 0.9149347917543121,
+  "macro_f1_top20": 0.8084121868325667,
+  "macro_f1_all": 0.6186144882518516,
+  "accuracy_4digit": 0.7843877396950023,
+  "accuracy_chapter": 0.9058961195832704,
   "baselines": {
     "majority_class": {
       "label": "5300",
-      "accuracy_4digit": 0.16205300799326883,
-      "macro_f1_top20": 0.016853342667133356
+      "accuracy_4digit": 0.16386078816246413,
+      "macro_f1_top20": 0.01722072357981593
     },
     "char_ngram_complement_nb": {
-      "accuracy_4digit": 0.6538493899873791,
-      "macro_f1_top20": 0.5948014492562491
+      "accuracy_4digit": 0.6550279329608939,
+      "macro_f1_top20": 0.6022420794295843
     }
   }
 }
