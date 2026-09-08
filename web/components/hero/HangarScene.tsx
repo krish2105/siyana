@@ -189,6 +189,22 @@ function FitCamera({ bays, controls }: { bays: number; controls: React.RefObject
   return null;
 }
 
+function FirstFrameGuard({ onFail }: { onFail: () => void }) {
+  // If the canvas is visible but never paints a frame within two seconds (software GL, throttled
+  // rAF), give the hero back to the SVG plan view rather than leaving a blank panel.
+  const drawn = useRef(false);
+  useFrame(() => {
+    drawn.current = true;
+  });
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      if (!drawn.current && document.visibilityState === "visible") onFail();
+    }, 2000);
+    return () => window.clearTimeout(t);
+  }, [onFail]);
+  return null;
+}
+
 function CameraRig({ target, controls }: { target: [number, number, number] | null; controls: React.RefObject<OrbitControlsImpl | null> }) {
   const { camera } = useThree();
   const anim = useRef<{ from: THREE.Vector3; to: THREE.Vector3; camFrom: THREE.Vector3; camTo: THREE.Vector3; mv: ReturnType<typeof motionValue<number>> } | null>(null);
@@ -216,7 +232,7 @@ function CameraRig({ target, controls }: { target: [number, number, number] | nu
   return null;
 }
 
-function Scene({ zones, tails, watchlist, schedule, palette }: { zones: Zone[]; tails: TailRow[]; watchlist: WatchRow[]; schedule: ScheduleRun | null; palette: Palette }) {
+function Scene({ zones, tails, watchlist, schedule, palette, onUnavailable }: { zones: Zone[]; tails: TailRow[]; watchlist: WatchRow[]; schedule: ScheduleRun | null; palette: Palette; onUnavailable: () => void }) {
   const router = useRouter();
   const reduce = useReducedMotion();
   const { focusedTail, setFocusedTail } = useUiState();
@@ -226,7 +242,7 @@ function Scene({ zones, tails, watchlist, schedule, palette }: { zones: Zone[]; 
 
   useEffect(() => {
     // The one non-user-triggered motion: outline draws (900ms), then zones by severity.
-    const ctrl = animate(t, TIMELINE_END, { duration: reduce ? 0 : TIMELINE_END, ease: "linear", onUpdate: () => invalidate() });
+    const ctrl = animate(t, TIMELINE_END, { duration: reduce ? 0 : TIMELINE_END, ease: "linear", onUpdate: () => invalidate(), onComplete: () => invalidate() });
     return () => ctrl.stop();
   }, [t, reduce]);
 
@@ -239,6 +255,7 @@ function Scene({ zones, tails, watchlist, schedule, palette }: { zones: Zone[]; 
       <directionalLight position={[20, 40, 30]} intensity={1.6} />
       <directionalLight position={[-30, 20, -20]} intensity={0.5} />
       <FitCamera bays={bays.length} controls={controls} />
+      <FirstFrameGuard onFail={onUnavailable} />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.9, 0]}>
         <planeGeometry args={[bays.length * BAY_W + 30, BAY_D + 24]} />
         <meshStandardMaterial color={palette.surface1} roughness={0.95} />
@@ -309,8 +326,20 @@ export function HangarScene({ zones, tails, watchlist, schedule, onUnavailable }
   useEffect(() => {
     invalidate();
   }, [palette]);
+  useEffect(() => {
+    // frameloop="demand" draws nothing while the tab is hidden; request one frame when it comes back.
+    const wake = () => invalidate();
+    document.addEventListener("visibilitychange", wake);
+    window.addEventListener("focus", wake);
+    window.addEventListener("pageshow", wake);
+    return () => {
+      document.removeEventListener("visibilitychange", wake);
+      window.removeEventListener("focus", wake);
+      window.removeEventListener("pageshow", wake);
+    };
+  }, []);
   return (
-    <div className="relative aspect-[2/1] w-full min-h-[320px] max-h-[520px]" role="img" aria-label="Three-dimensional hangar view: aircraft parked in bays with defect zones glowing by severity. The table below lists the same data.">
+    <div className="relative h-full w-full" role="img" aria-label="Three-dimensional hangar view: aircraft parked in bays with defect zones glowing by severity. The table below lists the same data.">
       <GlBoundary onFail={onUnavailable}>
         <Canvas
           dpr={[1, 1.75]}
@@ -328,7 +357,7 @@ export function HangarScene({ zones, tails, watchlist, schedule, onUnavailable }
           }}
           style={{ touchAction: "pan-y" }}
         >
-          <Scene zones={zones} tails={tails} watchlist={watchlist} schedule={schedule} palette={palette} />
+          <Scene zones={zones} tails={tails} watchlist={watchlist} schedule={schedule} palette={palette} onUnavailable={onUnavailable} />
         </Canvas>
       </GlBoundary>
     </div>

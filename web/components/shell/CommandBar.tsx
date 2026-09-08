@@ -19,8 +19,8 @@ export function CommandBar({ summary }: { summary: Summary | null }) {
     : [];
   return (
     <header className="sticky top-3 z-40 mx-auto w-[min(100%-1.5rem,1400px)]">
-      <div className="glass flex min-h-14 flex-wrap items-center gap-x-3 gap-y-2 rounded-[6px] px-3 py-2">
-        <Link href="/" className="placard-lg flex items-baseline gap-2 text-ink" aria-label="SIYANA home">
+      <div className="glass flex min-h-14 flex-wrap items-center gap-x-3 gap-y-2 rounded-[6px] px-3 py-2 lg:flex-nowrap">
+        <Link href="/" className="placard-lg flex items-baseline gap-2 text-ink">
           <span className="text-lg tracking-[0.18em]">SIYANA</span>
           <span className="placard hidden text-ink-muted sm:inline">Miraat control room</span>
         </Link>
@@ -44,6 +44,7 @@ export function CommandBar({ summary }: { summary: Summary | null }) {
             onClick={() => setPaletteOpen(true)}
             className="flex h-9 items-center gap-2 rounded-[3px] border border-hairline bg-surface-2 px-3 text-sm text-ink-muted hover:text-ink"
             aria-keyshortcuts="Meta+K Control+K"
+            aria-label="Search or paste a snag"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <circle cx="11" cy="11" r="7" />

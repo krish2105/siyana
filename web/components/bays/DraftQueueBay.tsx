@@ -60,7 +60,7 @@ export function DraftQueueBay({ cards: initial }: { cards: Card[] }) {
                       <span className="tag tag-lamp">Draft</span> {c.body.disclaimer}
                     </div>
                     <p className="text-ink">{c.body.proposed_action}</p>
-                    <h4 className="placard mt-3 text-ink-muted">Source snags</h4>
+                    <h3 className="placard mt-3 text-ink-muted">Source snags</h3>
                     <ul className="mt-1 space-y-1">
                       {c.body.source_snags.map((s) => (
                         <li key={s.id} className="text-xs">
@@ -69,9 +69,9 @@ export function DraftQueueBay({ cards: initial }: { cards: Card[] }) {
                         </li>
                       ))}
                     </ul>
-                    <h4 className="placard mt-3 text-ink-muted">Work orders</h4>
+                    <h3 className="placard mt-3 text-ink-muted">Work orders</h3>
                     <p className="code text-xs text-ink">{c.body.work_order_ids.join("  ") || "—"}</p>
-                    <h4 className="placard mt-3 text-ink-muted">References</h4>
+                    <h3 className="placard mt-3 text-ink-muted">References</h3>
                     <ul className="list-inside list-disc text-xs text-ink">
                       {c.body.references.map((r) => <li key={r}>{r}</li>)}
                     </ul>

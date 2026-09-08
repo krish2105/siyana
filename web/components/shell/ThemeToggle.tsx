@@ -16,11 +16,11 @@ export function ThemeToggle() {
       type="button"
       role="switch"
       aria-checked={hangar}
-      aria-label={`Theme: ${hangar ? "Hangar" : "Ramp"}. Switch to ${hangar ? "Ramp" : "Hangar"}.`}
       onClick={toggleTheme}
       className="group relative flex h-9 items-center gap-2 rounded-[3px] border border-hairline bg-surface-2 px-1.5 text-ink-muted"
     >
       <span className={`placard px-1 ${hangar ? "text-ink" : ""}`}>Hangar</span>
+      <span className="sr-only">or</span>
       <span className="relative block h-5 w-11 rounded-full border border-hairline bg-surface-0" aria-hidden="true">
         <motion.span
           className="absolute top-[2px] left-[2px] block h-[14px] w-[14px] rounded-full"
@@ -33,6 +33,7 @@ export function ThemeToggle() {
         />
       </span>
       <span className={`placard px-1 ${hangar ? "" : "text-ink"}`}>Ramp</span>
+      <span className="sr-only">theme, currently {hangar ? "Hangar" : "Ramp"}</span>
     </button>
   );
 }

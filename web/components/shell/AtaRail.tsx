@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { RAIL_CHAPTERS } from "@/lib/airframe";
 import type { Zone } from "@/lib/api";
-import { severityVar } from "@/lib/severity";
+import { severityToken, severityVar } from "@/lib/severity";
 
 /**
  * The left rail is numbered because ATA chapters are a real numbered taxonomy: the number is
@@ -34,7 +34,7 @@ export function AtaRail({ zones }: { zones: Zone[] }) {
                 <span className="hidden truncate lg:inline">{title}</span>
                 {open > 0 ? (
                   <span
-                    className="code ml-auto rounded-[2px] px-1 text-[0.68rem] leading-4 text-lamp-ink"
+                    className={`code ml-auto rounded-[2px] px-1 text-[0.72rem] font-medium leading-4 ${severityToken(z?.max_severity_rank ?? 1) === "tag-us" ? "text-white" : "text-lamp-ink"}`}
                     style={{ background: severityVar(z?.max_severity_rank ?? 1) }}
                     aria-label={`${open} open defects`}
                   >

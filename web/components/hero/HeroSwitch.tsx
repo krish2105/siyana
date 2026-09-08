@@ -43,11 +43,13 @@ export function HeroSwitch({ zones, tails, watchlist, schedule }: { zones: Zone[
   }, [reduce, forceSvg]);
 
   return (
-    <div className="relative">
+    <div className="relative aspect-[2/1] min-h-[300px] max-h-[520px] w-full">
       {mode === "3d" ? (
         <HangarScene zones={zones} tails={tails} watchlist={watchlist} schedule={schedule} onUnavailable={() => setForceSvg(true)} />
       ) : (
-        <AirframePlan zones={zones} />
+        <div className="flex h-full w-full items-center justify-center">
+          <AirframePlan zones={zones} />
+        </div>
       )}
       {mode === "3d" && (
         <button

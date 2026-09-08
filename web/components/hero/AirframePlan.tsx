@@ -32,8 +32,8 @@ export function AirframePlan({
       viewBox={`0 0 ${VIEWBOX.w} ${VIEWBOX.h}`}
       role="img"
       aria-labelledby="airframe-title airframe-desc"
-      className="h-auto w-full"
-      style={{ maxHeight: compact ? 220 : 480 }}
+      className="h-full w-full"
+      style={{ maxHeight: compact ? 220 : 520 }}
     >
       <title id="airframe-title">Aircraft plan view with open defects by ATA chapter</title>
       <desc id="airframe-desc">
