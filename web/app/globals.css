@@ -1,26 +1,258 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------ */
+/* Themes. Hangar (night shift) is designed first; Ramp is derived.    */
+/* Colour is semantic: lamp = attention only, tag-us = unserviceable   */
+/* only, tag-serv = serviceable. Nothing decorative uses them.         */
+/* ------------------------------------------------------------------ */
+:root,
+:root[data-theme="hangar"] {
+  color-scheme: dark;
+  --surface-0: #0f1e27;
+  --surface-1: #162c38;
+  --surface-2: #1d3846;
+  --hairline: #2f4e5f;
+  --ink: #e6edf1;
+  --ink-muted: #8fa8b5;
+  --lamp: #e8a317;
+  --tag-us: #c4342b;
+  --tag-serv: #4e8c6a;
+  --lamp-ink: #0f1e27;
+  --scrim: rgb(5 12 17 / 0.55);
+  --glass-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.55);
+}
+
+:root[data-theme="ramp"] {
+  color-scheme: light;
+  --surface-0: #e4e6e3;
+  --surface-1: #f2f3f1;
+  --surface-2: #ffffff;
+  --hairline: #c2c8c6;
+  --ink: #0f1e27;
+  --ink-muted: #56666e;
+  --lamp: #b67b0b;
+  --tag-us: #a62b23;
+  --tag-serv: #3c6e53;
+  --lamp-ink: #ffffff;
+  --scrim: rgb(15 30 39 / 0.35);
+  --glass-shadow: 0 12px 32px -14px rgb(15 30 39 / 0.35);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-hairline: var(--hairline);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-lamp: var(--lamp);
+  --color-lamp-ink: var(--lamp-ink);
+  --color-tag-us: var(--tag-us);
+  --color-tag-serv: var(--tag-serv);
+
+  --font-display: var(--font-archivo), "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-plex-sans), "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-placard: 4px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.86rem);
+  --step-0: clamp(0.94rem, 0.9rem + 0.2vw, 1rem);
+  --step-1: clamp(1.1rem, 1.02rem + 0.4vw, 1.3rem);
+  --step-2: clamp(1.35rem, 1.2rem + 0.8vw, 1.75rem);
+  --step-3: clamp(1.7rem, 1.4rem + 1.6vw, 2.6rem);
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface-0);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Every interactive element gets the same lamp-coloured focus ring. */
+:focus-visible {
+  outline: 2px solid var(--lamp);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--lamp) 35%, transparent);
+}
+
+/* Placard type: Archivo, uppercase, tracked. Used for bay titles and eyebrows. */
+.placard {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+.placard-lg {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+/* Fixed-width codes: ATA, part numbers, work orders. Never for prose. */
+.code {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* Glass: exactly two surfaces use this (command bar, drill-in drawer). */
+.glass {
+  background: color-mix(in oklab, var(--surface-1) 72%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  backdrop-filter: blur(14px) saturate(1.15);
+  border: 1px solid color-mix(in oklab, var(--hairline) 60%, transparent);
+  box-shadow: var(--glass-shadow);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass {
+    background: var(--surface-1);
+    border-color: var(--hairline);
+  }
+}
+
+/* Bays: solid, hairline-bordered, never glass. */
+.bay {
+  background: var(--surface-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-placard);
+}
+
+.bay-raised {
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-placard);
+}
+
+.hairline-b {
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* Status tags: colour + text, never colour alone. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 2px;
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.tag-us {
+  background: var(--tag-us);
+  color: #fff;
+}
+.tag-serv {
+  background: var(--tag-serv);
+  color: #fff;
+}
+.tag-lamp {
+  background: var(--lamp);
+  color: var(--lamp-ink);
+}
+.tag-quiet {
+  border: 1px solid var(--hairline);
+  color: var(--ink-muted);
+}
+
+/* Hatched slot for a licence shortage on the Gantt. */
+.hatched {
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--tag-us) 55%, transparent) 0 6px,
+    transparent 6px 12px
+  );
+}
+
+/* Thin scrollbars inside bays. */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline) transparent;
+}
+
+/* Only transform and opacity are ever transitioned. */
+.t-fast {
+  transition-property: transform, opacity;
+  transition-duration: 180ms;
+  transition-timing-function: var(--ease-out-expo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Bays: varying sizes by grid area. Never identical cards. */
+.bays-grid {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "sig"
+    "rul"
+    "gantt"
+    "heat"
+    "queue";
+}
+@media (min-width: 768px) {
+  .bays-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "sig sig"
+      "rul gantt"
+      "heat heat"
+      "queue queue";
+  }
+}
+@media (min-width: 1200px) {
+  .bays-grid {
+    grid-template-columns: 1.2fr 1fr 0.9fr;
+    grid-template-areas:
+      "sig sig rul"
+      "gantt gantt rul"
+      "heat queue queue";
+  }
 }
