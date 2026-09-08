@@ -8,7 +8,19 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from services.common.config import settings
 
-engine = create_engine(settings.database_url, pool_pre_ping=True, future=True)
+import os
+
+# Hosted poolers (Supabase Supavisor, PgBouncer) cap client connections, so the pool is small by
+# default and tunable per host. pool_recycle keeps idle connections from being closed under us.
+engine = create_engine(
+    settings.database_url,
+    pool_pre_ping=True,
+    pool_size=int(os.environ.get("SIYANA_DB_POOL_SIZE", "5")),
+    max_overflow=int(os.environ.get("SIYANA_DB_MAX_OVERFLOW", "5")),
+    pool_recycle=int(os.environ.get("SIYANA_DB_POOL_RECYCLE", "300")),
+    pool_timeout=30,
+    future=True,
+)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False, class_=Session)
 
 
