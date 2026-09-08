@@ -19,7 +19,7 @@ export function SignaturesBay({ signatures }: { signatures: Signature[] }) {
               <div className="min-w-0">
                 <p className="text-ink">{s.canonical}</p>
                 <p className="code mt-0.5 text-xs text-ink-muted">
-                  <span className="text-lamp">×{s.count}</span> · {s.aircraft_type ?? "type n/a"} · {s.tails.slice(0, 3).join(" ")}{s.tails.length > 3 ? ` +${s.tails.length - 3}` : ""} · last {formatDate(s.last_seen)}
+                  <span className="attn">×{s.count}</span> · {s.aircraft_type ?? "type n/a"} · {s.tails.slice(0, 3).join(" ")}{s.tails.length > 3 ? ` +${s.tails.length - 3}` : ""} · last {formatDate(s.last_seen)}
                 </p>
               </div>
               <div className="flex flex-col items-end gap-1">

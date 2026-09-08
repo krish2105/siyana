@@ -11,9 +11,9 @@ export function CommandBar({ summary }: { summary: Summary | null }) {
   const strip = summary
     ? [
         { label: "Tails", value: summary.tails, tone: "" },
-        { label: "Open", value: summary.open_defects, tone: summary.open_defects > 0 ? "text-lamp" : "" },
-        { label: "Recurring", value: summary.recurring_signatures, tone: summary.recurring_signatures > 0 ? "text-lamp" : "" },
-        { label: "U/S", value: summary.unserviceable_tails, tone: summary.unserviceable_tails > 0 ? "text-tag-us" : "" },
+        { label: "Open", value: summary.open_defects, tone: summary.open_defects > 0 ? "attn" : "" },
+        { label: "Recurring", value: summary.recurring_signatures, tone: summary.recurring_signatures > 0 ? "attn" : "" },
+        { label: "U/S", value: summary.unserviceable_tails, tone: summary.unserviceable_tails > 0 ? "attn-us" : "" },
         { label: "Drafts", value: summary.drafts_pending, tone: "" },
       ]
     : [];

@@ -319,6 +319,12 @@ export function HangarScene({ zones, tails, watchlist, schedule, onUnavailable }
           gl={{ antialias: true, alpha: true, powerPreference: "high-performance", failIfMajorPerformanceCaveat: true }}
           onCreated={({ gl }) => {
             gl.setClearColor(0x000000, 0);
+            // A lost WebGL context (tab switch, GPU reset, HMR) leaves a blank canvas with frameloop="demand";
+            // hand the hero back to the SVG plan view instead of showing nothing.
+            gl.domElement.addEventListener("webglcontextlost", (e) => {
+              e.preventDefault();
+              onUnavailable();
+            });
           }}
           style={{ touchAction: "pan-y" }}
         >

@@ -46,7 +46,7 @@ export function EvidenceLink({ id, label = "Why?" }: { id: number; label?: strin
       </button>
       {open && (
         <div id={popId} role="dialog" aria-label={`Evidence ${id}`} className="bay-raised absolute right-0 z-30 mt-1 w-[min(92vw,22rem)] p-3 text-left text-sm shadow-lg">
-          {error && <p className="text-tag-us">Could not load evidence: {error}</p>}
+          {error && <p className="err">Could not load evidence: {error}</p>}
           {!data && !error && <p className="text-ink-muted">Loading evidence…</p>}
           {data && (
             <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">

@@ -2,10 +2,16 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-import lightgbm as lgb
 import numpy as np
 import pandas as pd
+
+if TYPE_CHECKING:
+    import lightgbm as lgb
+
+# lightgbm is imported inside the functions that need it. The API gateway imports this module for
+# paths and metrics but must never load LightGBM's OpenMP runtime next to torch's (see benchmark.py).
 
 from services.ajal.features import RUL_CAP, feature_columns, make_labels, window_features
 from services.common.config import settings
@@ -25,7 +31,9 @@ def nasa_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     return float(np.sum(np.where(d < 0, np.exp(-d / 13.0) - 1.0, np.exp(d / 10.0) - 1.0)))
 
 
-def train_lgbm(X: pd.DataFrame, y: np.ndarray, *, seed: int = 7) -> lgb.LGBMRegressor:
+def train_lgbm(X: pd.DataFrame, y: np.ndarray, *, seed: int = 7) -> "lgb.LGBMRegressor":
+    import lightgbm as lgb
+
     model = lgb.LGBMRegressor(
         n_estimators=1200,
         learning_rate=0.03,
@@ -59,13 +67,15 @@ def last_cycle_constant_baseline(train_df: pd.DataFrame, n_test_units: int, cap:
     return np.full(n_test_units, mean_rul, dtype=float)
 
 
-def save(model: lgb.LGBMRegressor, path: Path = MODEL_PATH) -> Path:
+def save(model: "lgb.LGBMRegressor", path: Path = MODEL_PATH) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     model.booster_.save_model(str(path))
     return path
 
 
-def load(path: Path = MODEL_PATH) -> lgb.Booster:
+def load(path: Path = MODEL_PATH) -> "lgb.Booster":
+    import lightgbm as lgb
+
     # num_threads=1: the gateway also loads torch (NAZAR); a second OpenMP runtime in the same
     # process segfaults multi-threaded LightGBM on macOS. Single-thread prediction is instant anyway.
     return lgb.Booster(model_file=str(path), params={"num_threads": 1})

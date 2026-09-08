@@ -61,7 +61,7 @@ export function InspectPanel({ metrics }: { metrics: { patchcore?: { mean_image_
           </div>
         )}
         {busy && <p className="mt-3 text-sm text-ink-muted" aria-live="polite">Running detector and anomaly head…</p>}
-        {error && <p className="mt-3 text-sm text-tag-us" role="alert">Inspection failed: {error}</p>}
+        {error && <p className="err mt-3 text-sm" role="alert">Inspection failed: {error}</p>}
       </section>
 
       <aside className="space-y-4">

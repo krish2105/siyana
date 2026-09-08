@@ -147,7 +147,7 @@ function PaletteBody({ zones, tails }: { zones: Zone[]; tails: TailRow[] }) {
         {(judging || result || error) && (
           <div className="hairline-b border-t px-3 py-3 text-sm" aria-live="polite">
             {judging && <p className="text-ink-muted">Judging… normalising, classifying, retrieving 20 neighbours, asking the judge.</p>}
-            {error && <p className="text-tag-us">Judge failed: {error}</p>}
+            {error && <p className="err">Judge failed: {error}</p>}
             {result && (
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-2">

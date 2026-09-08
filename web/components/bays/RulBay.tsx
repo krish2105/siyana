@@ -51,7 +51,7 @@ export function RulBay({ rows, benchmark }: { rows: WatchRow[]; benchmark: { rms
                 <td className="py-1.5 pr-2 text-ink-muted">ENG {r.engine_pos}</td>
                 <td className="py-1.5 pr-2"><Spark series={r.series} band={r.band} /></td>
                 <td className="py-1.5 pr-2 text-right">
-                  <span className={`code ${r.band === "critical" ? "text-tag-us" : r.band === "watch" ? "text-lamp" : "text-ink"}`}>{r.predicted_rul.toFixed(0)}</span>
+                  <span className={`code ${r.band === "critical" ? "attn-us" : r.band === "watch" ? "attn" : "text-ink"}`}>{r.predicted_rul.toFixed(0)}</span>
                   <span className="ml-1 text-xs text-ink-muted">cyc</span>
                   <span className="sr-only"> {r.band}</span>
                 </td>

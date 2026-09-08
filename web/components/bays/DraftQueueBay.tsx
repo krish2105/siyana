@@ -57,7 +57,7 @@ export function DraftQueueBay({ cards: initial }: { cards: Card[] }) {
                 {open && (
                   <div className="hairline-b border-t px-3 py-3 text-sm">
                     <div className="mb-2 rounded-[3px] border border-lamp/60 px-2 py-1.5 text-xs text-ink">
-                      <span className="placard text-lamp">Draft</span> · {c.body.disclaimer}
+                      <span className="tag tag-lamp">Draft</span> {c.body.disclaimer}
                     </div>
                     <p className="text-ink">{c.body.proposed_action}</p>
                     <h4 className="placard mt-3 text-ink-muted">Source snags</h4>
@@ -94,7 +94,7 @@ export function DraftQueueBay({ cards: initial }: { cards: Card[] }) {
                         <input value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })} className="mt-1 h-10 w-full rounded-[3px] border border-hairline bg-surface-1 px-2 text-sm text-ink" />
                       </label>
                       <div className="flex gap-2 sm:col-span-2">
-                        <button type="button" disabled={busy === c.id} onClick={() => decide(c, "APPROVED")} className="h-10 flex-1 rounded-[3px] bg-tag-serv px-3 text-sm font-medium text-white disabled:opacity-50">
+                        <button type="button" disabled={busy === c.id} onClick={() => decide(c, "APPROVED")} className="tag-serv h-10 flex-1 rounded-[3px] bg-surface-1 px-3 text-sm font-medium text-ink disabled:opacity-50">
                           {busy === c.id ? "Recording…" : "Approve card"}
                         </button>
                         <button type="button" disabled={busy === c.id} onClick={() => decide(c, "REJECTED")} className="h-10 flex-1 rounded-[3px] border border-hairline bg-surface-1 px-3 text-sm text-ink disabled:opacity-50">

@@ -94,7 +94,7 @@ function DrawerBody({ chapter, zones }: { chapter: string; zones: Zone[] }) {
             <AirframePlan zones={zones} highlight={chapter} compact animate={false} />
           </div>
 
-          {error && <p className="text-sm text-tag-us">Could not load chapter: {error}. Is the API running on {API_URL}?</p>}
+          {error && <p className="err text-sm">Could not load chapter: {error}. Is the API running on {API_URL}?</p>}
           {!data && !error && <p className="text-sm text-ink-muted">Loading chapter…</p>}
 
           {data && (
@@ -153,7 +153,7 @@ function DrawerBody({ chapter, zones }: { chapter: string; zones: Zone[] }) {
                           <span>{formatDate(s.occurred_at)}</span>
                           <span>{s.ata_code}</span>
                           <span>WO {s.work_order_id ?? "—"}</span>
-                          {s.signature_id && <span className="text-lamp">recurring</span>}
+                          {s.signature_id && <span className="attn">recurring</span>}
                         </div>
                         <p className="mt-0.5 text-ink">{s.text}</p>
                       </li>
