@@ -1,0 +1,12 @@
+data/raw/
+data/processed/
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.next/
+.env
+.env.local
+*.pt
+*.pth
+*.ckpt
