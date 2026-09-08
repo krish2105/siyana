@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { DraftQueueBay } from "@/components/bays/DraftQueueBay";
 import { GanttBay } from "@/components/bays/GanttBay";
 import { HeatmapBay } from "@/components/bays/HeatmapBay";
@@ -13,6 +12,8 @@ import { CommandBar } from "@/components/shell/CommandBar";
 import { DrillDrawer } from "@/components/shell/DrillDrawer";
 import { API_URL, api } from "@/lib/api";
 
+// Rendered per request: the fleet picture is live data. No Suspense boundaries around the shell,
+// because a streamed header arrives after <main> and shifts the whole page (measured CLS 0.9).
 export const dynamic = "force-dynamic";
 
 export default async function ControlRoom() {
@@ -31,9 +32,7 @@ export default async function ControlRoom() {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <CommandBar summary={summary} />
-      </Suspense>
+      <CommandBar summary={summary} />
       <main id="main" className="mx-auto w-[min(100%-1.5rem,1400px)] pb-16 pt-4">
         {!summary && (
           <p role="alert" className="mb-4 rounded-[3px] border border-lamp px-3 py-2 text-sm text-ink">
@@ -41,9 +40,7 @@ export default async function ControlRoom() {
           </p>
         )}
         <div className="grid gap-4 lg:grid-cols-[13rem_1fr]">
-          <Suspense fallback={null}>
-            <AtaRail zones={zones} />
-          </Suspense>
+          <AtaRail zones={zones} />
 
           <div className="min-w-0 space-y-4">
             <section aria-labelledby="hero-title" className="bay">
@@ -78,9 +75,7 @@ export default async function ControlRoom() {
           </div>
         </div>
       </main>
-      <Suspense fallback={null}>
-        <DrillDrawer zones={zones} />
-      </Suspense>
+      <DrillDrawer zones={zones} />
       <CommandPalette zones={zones} tails={tails} />
       <DemoMode />
     </>
