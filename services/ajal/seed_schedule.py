@@ -1,7 +1,7 @@
 """Build the week's task list from open defect events on fleet tails, solve it, store the run.
 
 Estimated hours come from a per-chapter table (typical line-maintenance access + rectification
-time). Due dates come from the defect's severity rank: S4 within 24h, S3 within 48h, S2 by day 4,
+time). Due dates come from the defect's severity rank: S4 within 48h, S3 by day 4, S2 by day 6,
 S1 by end of week. Bays and engineers are the demo hangar; an operator replaces them with their
 roster. The roster is deliberately one B1.1 short on Thursday so the infeasibility path is visible.
 """
@@ -21,7 +21,7 @@ SCHEDULER_VERSION = "ajal-scheduler/cp-sat/ortools-9.15"
 
 EST_HOURS = {"21": 4, "22": 3, "23": 2, "24": 3, "25": 3, "26": 3, "27": 6, "28": 6, "29": 5, "30": 3, "31": 2, "32": 6, "33": 2, "34": 3, "35": 3, "36": 4, "38": 2, "49": 5, "52": 4, "53": 8, "54": 6, "55": 6, "56": 3, "57": 8, "71": 6, "72": 10, "73": 5, "74": 3, "75": 4, "76": 3, "77": 2, "78": 5, "79": 3, "80": 3}
 LICENCE_FOR = {"22": "B2", "23": "B2", "24": "B2", "31": "B2", "33": "B2", "34": "B2", "42": "B2", "44": "B2", "45": "B2", "46": "B2"}
-DUE_BY_RANK = {4: 24, 3: 48, 2: 96, 1: HORIZON_HOURS}
+DUE_BY_RANK = {4: 48, 3: 96, 2: 144, 1: HORIZON_HOURS}
 
 BAYS = [
     BaySpec(id="B1", name="Bay 1", capable_ata={"21", "24", "25", "26", "27", "28", "29", "30", "32", "33", "36", "38", "52", "53", "54", "55", "56", "57"}),
@@ -46,7 +46,7 @@ ENGINEERS = [
 ]
 
 
-def build_tasks(session: Session, limit: int = 28) -> list[Task]:
+def build_tasks(session: Session, limit: int = 22) -> list[Task]:
     from services.gateway.fleet import open_events_query, severity_rank
 
     q, now = open_events_query(session)
