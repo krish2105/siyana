@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import io
 import json
+import os
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from PIL import Image
@@ -13,7 +14,10 @@ from services.common.db import get_session
 from services.common.evidence import write_evidence
 from services.common.hashing import sha256_bytes
 from services.common.models import NazarFinding
-from services.nazar.eval import METRICS_PATH
+from services.common.config import settings
+
+METRICS_PATH = settings.metrics_dir / "nazar.json"
+NAZAR_ENABLED = os.environ.get("SIYANA_ENABLE_NAZAR", "1") != "0"
 
 router = APIRouter(prefix="/nazar", tags=["nazar"])
 _nazar = None
@@ -21,6 +25,8 @@ _nazar = None
 
 def get_nazar():
     global _nazar
+    if not NAZAR_ENABLED:
+        raise HTTPException(503, "Vision inference is disabled on this host (SIYANA_ENABLE_NAZAR=0). Run the API on a host with at least 2 GB RAM, or use Docker Compose, to enable NAZAR.")
     if _nazar is None:
         from services.nazar.inference import Nazar
 

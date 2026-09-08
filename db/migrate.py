@@ -6,6 +6,7 @@ Idempotent: applied files are recorded in schema_migrations and skipped next tim
 from __future__ import annotations
 
 import csv
+import os
 import sys
 from pathlib import Path
 
@@ -29,8 +30,15 @@ def apply_migrations() -> list[str]:
             )
         )
         done = {r[0] for r in conn.execute(text("SELECT filename FROM schema_migrations"))}
+        skip_ann = os.environ.get("SIYANA_SKIP_VECTOR_INDEX") == "1"
         for path in sorted(MIGRATIONS.glob("*.sql")):
             if path.name in done:
+                continue
+            if skip_ann and "ivfflat" in path.read_text():
+                # Small hosted databases: a sequential scan over ~100k vectors answers in tens of ms
+                # and the index would cost more storage than the rows. Record it as applied.
+                conn.execute(text("INSERT INTO schema_migrations(filename) VALUES (:f)"), {"f": path.name})
+                applied.append(path.name + " (skipped: SIYANA_SKIP_VECTOR_INDEX)")
                 continue
             conn.execute(text(path.read_text()))
             conn.execute(text("INSERT INTO schema_migrations(filename) VALUES (:f)"), {"f": path.name})

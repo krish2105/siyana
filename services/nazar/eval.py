@@ -22,7 +22,7 @@ from services.common.config import settings
 from services.nazar.patchcore import PatchCore
 
 MVTEC_ROOT = settings.raw_dir / "mvtec"
-METRICS_PATH = settings.metrics_dir / "nazar.json"
+METRICS_PATH = settings.metrics_dir / "nazar.json"  # also defined in router.py so the gateway never imports torch
 
 
 def aupro(heatmaps: list[np.ndarray], masks: list[np.ndarray], max_fpr: float = 0.3, steps: int = 40) -> float:
