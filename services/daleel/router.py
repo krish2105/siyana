@@ -156,3 +156,23 @@ def approve_endpoint(card_id: int, req: ApprovalRequest, session: Session = Depe
         return _card_out(approve_card(session, card_id, engineer_name=req.engineer_name, licence_number=req.licence_number, decision=req.decision, note=req.note))
     except ValueError as e:
         raise HTTPException(409 if "already" in str(e) else 400, str(e)) from e
+
+
+@router.get("/metrics")
+def daleel_metrics() -> dict:
+    """Measured evaluation results (recurrence judge and ATA classifier) from data/metrics."""
+    import json
+
+    from services.common.config import settings
+
+    out: dict = {}
+    for name in ("daleel_recurrence", "daleel_ata"):
+        p = settings.metrics_dir / f"{name}.json"
+        if p.exists():
+            m = json.loads(p.read_text())
+            m.pop("embedding_judge_sweep", None)
+            m.pop("top20_classes", None)
+            out[name] = m
+    if not out:
+        raise HTTPException(404, "no DALEEL metrics yet: python -m services.daleel.eval evaluate")
+    return out

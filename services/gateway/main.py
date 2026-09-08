@@ -14,10 +14,13 @@ from services.common.db import db_reachable
 from services.daleel.router import router as daleel_router
 from services.gateway.evidence_api import router as evidence_router
 from services.gateway.fleet import router as fleet_router
+from services.gateway.middleware import api_key_required, request_context
+
+VERSION = "0.2.0"
 
 app = FastAPI(
     title="SIYANA API",
-    version="0.1.0",
+    version=VERSION,
     description="Aircraft maintenance intelligence: recurrence detection, RUL, scheduling, vision. Every AI output carries an evidence id.",
 )
 
@@ -29,6 +32,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.middleware("http")(request_context)
 
 app.include_router(fleet_router)
 app.include_router(daleel_router)
@@ -45,4 +50,33 @@ except ImportError:
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "db": db_reachable()}
+    """Liveness: the process is up and the database answers."""
+    return {"status": "ok", "version": VERSION, "db": db_reachable()}
+
+
+@app.get("/health/ready")
+def ready() -> dict:
+    """Readiness: the corpus and derived tables are populated enough to serve the control room."""
+    from sqlalchemy import func, select
+
+    from services.common.db import SessionLocal
+    from services.common.models import Evidence, Signature, Snag, Tail
+
+    with SessionLocal() as s:
+        counts = {
+            "snags": s.execute(select(func.count()).select_from(Snag)).scalar() or 0,
+            "embedded": s.execute(select(func.count()).select_from(Snag).where(Snag.embedding.is_not(None))).scalar() or 0,
+            "fleet_tails": s.execute(select(func.count()).select_from(Tail).where(Tail.in_fleet.is_(True))).scalar() or 0,
+            "signatures": s.execute(select(func.count()).select_from(Signature)).scalar() or 0,
+            "evidence_rows": s.execute(select(func.count()).select_from(Evidence)).scalar() or 0,
+        }
+    ready_ok = counts["snags"] > 0 and counts["fleet_tails"] > 0
+    return {
+        "ready": ready_ok,
+        "version": VERSION,
+        "auth": "api-key" if api_key_required() else "open",
+        "embed_backend": os.environ.get("SIYANA_EMBED_BACKEND", "torch"),
+        "vision": os.environ.get("SIYANA_ENABLE_NAZAR", "1") != "0",
+        "judge": "claude" if os.environ.get("ANTHROPIC_API_KEY") else "embedding",
+        **counts,
+    }

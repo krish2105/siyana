@@ -5,26 +5,31 @@ services:
     runtime: python
     buildCommand: pip install -r requirements-render.txt
     startCommand: python db/migrate.py && uvicorn services.gateway.main:app --host 0.0.0.0 --port $PORT
-    plan: standard
+    plan: free
     region: singapore
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: siyana-db
-          property: connectionString
+        sync: false   # any Postgres 16+ with pgvector; the live deployment uses a Supabase schema
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: CORS_ORIGINS
-        value: https://siyana.vercel.app
+        value: https://siyana-six.vercel.app
+      - key: SIYANA_EMBED_BACKEND
+        value: fastembed
+      - key: SIYANA_ENABLE_NAZAR
+        value: "0"
+      - key: SIYANA_SKIP_VECTOR_INDEX
+        value: "1"
       - key: SIYANA_DATA_DIR
         value: ./data
       - key: SIYANA_ATA_CLASSIFIER
         value: "0"
       - key: PYTHON_VERSION
         value: "3.12.8"
-databases:
-  - name: siyana-db
-    plan: basic-256mb
-    region: singapore
-    postgresMajorVersion: "16"
+# Optional: a Render Postgres instead of Supabase. Requires a paid plan for 5 GB storage.
+# databases:
+#   - name: siyana-db
+#     plan: basic-256mb
+#     region: singapore
+#     postgresMajorVersion: "16"

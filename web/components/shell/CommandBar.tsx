@@ -35,6 +35,7 @@ export function CommandBar({ summary }: { summary: Summary | null }) {
         </dl>
 
         <nav aria-label="Pages" className="hidden items-center gap-1 lg:flex">
+          <Link href="/pitch" className="placard rounded-[3px] px-2 py-2 text-ink-muted hover:text-ink">Pitch</Link>
           <Link href="/inspect" className="placard rounded-[3px] px-2 py-2 text-ink-muted hover:text-ink">Inspect</Link>
           <Link href="/audit" className="placard rounded-[3px] px-2 py-2 text-ink-muted hover:text-ink">Audit</Link>
         </nav>

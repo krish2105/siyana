@@ -1,5 +1,11 @@
 # SIYANA
 
+[![ci](https://github.com/krish2105/siyana/actions/workflows/ci.yml/badge.svg)](https://github.com/krish2105/siyana/actions/workflows/ci.yml)
+[![live](https://img.shields.io/badge/live-siyana--six.vercel.app-0F1E27?labelColor=E8A317)](https://siyana-six.vercel.app)
+[![api](https://img.shields.io/badge/api-siyana--api.onrender.com-0F1E27?labelColor=4E8C6A)](https://siyana-api.onrender.com/docs)
+
+**Live:** control room at https://siyana-six.vercel.app · API and OpenAPI docs at https://siyana-api.onrender.com/docs · pitch at https://siyana-six.vercel.app/pitch
+
 AI intelligence for aircraft maintenance (MRO) and continuing airworthiness. SIYANA mines free-text
 tech-log snags for recurring defect signatures, predicts component remaining useful life, schedules
 the hangar around it, inspects imagery for damage, and shows the whole picture in one control room.
@@ -142,8 +148,18 @@ container, so ingest once on the host and the containers see the same corpus.
 
 ## Deploy
 
-- **API + database on Render**: `render.yaml` defines the web service (Docker) and a Postgres 16 instance. Set `ANTHROPIC_API_KEY` in the Render dashboard; `DATABASE_URL` is injected from the database.
-- **Web on Vercel**: import `web/` as the project root; `web/vercel.json` pins the framework and region. Set `NEXT_PUBLIC_API_URL` to the Render service URL and add that Vercel origin to `CORS_ORIGINS` on the API.
+The live deployment, and how to reproduce it:
+
+| Piece | Where | Notes |
+|---|---|---|
+| Web | Vercel, project `siyana`, root `web/`, region bom1 | Auto-deploys from `main`. The production API URL is the code default in `web/lib/api.ts`; override with `NEXT_PUBLIC_API_URL`. |
+| API | Render web service `siyana-api`, Python runtime, Singapore, free plan | `render.yaml` holds the exact build and start commands and env vars. Free plan: 512 MB RAM, sleeps after 15 min idle (first request ~30 s). Env `SIYANA_EMBED_BACKEND=fastembed` (ONNX MiniLM), `SIYANA_ENABLE_NAZAR=0`, `SIYANA_ATA_CLASSIFIER=0`. Move to a 2 GB plan and flip those two flags to serve vision and ATA classification. |
+| Database | Supabase (free) project, dedicated `siyana` schema and role, Mumbai | 107k-snag narrow-body corpus (B737, A320/A319/A321, E170/E190, CRJ) plus ASRS, 323 MB, sequential-scan retrieval (`SIYANA_SKIP_VECTOR_INDEX=1`). Session pooler on port 5432 for IPv4 hosts. |
+| Model weights | GitHub release `models-v1` | Fetched on first use by `services/common/artefacts.py`; override the base URL with `SIYANA_ARTEFACT_BASE`. |
+
+Set `ANTHROPIC_API_KEY` on the API host to switch the judge from the embedding fallback to
+claude-sonnet-4-6; `/health/ready` reports which judge, backend and auth mode are active. Set
+`SIYANA_API_KEY` to require `X-SIYANA-KEY` on every mutating route (see `SECURITY.md`).
 
 ## Safety posture
 
