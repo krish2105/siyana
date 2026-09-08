@@ -1,0 +1,10 @@
+{
+  "name": "SIYANA · MIRAAT control room",
+  "short_name": "SIYANA",
+  "description": "Continuing-airworthiness intelligence for MRO: recurring defects, RUL, hangar scheduling, evidence for every recommendation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F1E27",
+  "theme_color": "#0F1E27",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

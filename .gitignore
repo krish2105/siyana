@@ -18,3 +18,4 @@ data/models/*.npy
 data/models/*.npz
 data/models/*.safetensors
 data/logs/
+.env.deploy
