@@ -4,6 +4,8 @@
 [![live](https://img.shields.io/badge/live-siyana--six.vercel.app-0F1E27?labelColor=E8A317)](https://siyana-six.vercel.app)
 [![api](https://img.shields.io/badge/api-siyana--api.onrender.com-0F1E27?labelColor=4E8C6A)](https://siyana-api.onrender.com/docs)
 
+![SIYANA control room, Hangar theme, live fleet](docs/figures/live_control_room_desktop.png)
+
 **Live:** control room at https://siyana-six.vercel.app · API and OpenAPI docs at https://siyana-api.onrender.com/docs · pitch at https://siyana-six.vercel.app/pitch
 
 AI intelligence for aircraft maintenance (MRO) and continuing airworthiness. SIYANA mines free-text
