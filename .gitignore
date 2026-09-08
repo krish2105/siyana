@@ -10,3 +10,11 @@ node_modules/
 *.pt
 *.pth
 *.ckpt
+
+# large trained artefacts (rebuild with the commands in README)
+data/models/*.joblib
+data/models/*.pt
+data/models/*.npy
+data/models/*.npz
+data/models/*.safetensors
+data/logs/
