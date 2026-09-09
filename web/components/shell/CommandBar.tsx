@@ -22,7 +22,7 @@ export function CommandBar({ summary }: { summary: Summary | null }) {
       <div className="glass flex min-h-14 flex-wrap items-center gap-x-3 gap-y-2 rounded-[6px] px-3 py-2 lg:flex-nowrap">
         <Link href="/" className="placard-lg flex items-baseline gap-2 text-ink">
           <span className="text-lg tracking-[0.18em]">SIYANA</span>
-          <span className="placard hidden whitespace-nowrap text-ink-muted xl:inline">Miraat control room</span>
+          <span className="placard hidden whitespace-nowrap text-ink-muted 2xl:inline">Miraat control room</span>
         </Link>
 
         <dl className="hidden items-center gap-3 md:flex" aria-label="Fleet status">
@@ -51,8 +51,8 @@ export function CommandBar({ summary }: { summary: Summary | null }) {
               <circle cx="11" cy="11" r="7" />
               <path d="m20 20-3.5-3.5" />
             </svg>
-            <span className="hidden whitespace-nowrap xl:inline">Search or paste a snag</span>
-            <kbd className="code hidden rounded-[2px] border border-hairline px-1 text-[0.66rem] xl:inline">⌘K</kbd>
+            <span className="hidden whitespace-nowrap 2xl:inline">Search or paste a snag</span>
+            <kbd className="code hidden rounded-[2px] border border-hairline px-1 text-[0.66rem] 2xl:inline">⌘K</kbd>
           </button>
           <button
             type="button"
