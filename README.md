@@ -156,8 +156,10 @@ The live deployment, and how to reproduce it:
 |---|---|---|
 | Web | Vercel, project `siyana`, root `web/`, region bom1 | Auto-deploys from `main`. The production API URL is the code default in `web/lib/api.ts`; override with `NEXT_PUBLIC_API_URL`. |
 | API | Render web service `siyana-api`, Python runtime, Singapore, free plan | `render.yaml` holds the exact build and start commands and env vars. Free plan: 512 MB RAM, sleeps after 15 min idle (first request ~30 s). Env `SIYANA_EMBED_BACKEND=fastembed` (ONNX MiniLM), `SIYANA_ENABLE_NAZAR=0`, `SIYANA_ATA_CLASSIFIER=0`. Move to a 2 GB plan and flip those two flags to serve vision and ATA classification. |
-| Database | Supabase (free) project, dedicated `siyana` schema and role, Mumbai | 107k-snag narrow-body corpus (B737, A320/A319/A321, E170/E190, CRJ) plus ASRS, 323 MB, sequential-scan retrieval (`SIYANA_SKIP_VECTOR_INDEX=1`). Session pooler on port 5432 for IPv4 hosts. |
+| Database | Supabase (free) project, dedicated `siyana` schema and role, Mumbai | 132k-snag narrow-body corpus (B737, A320/A319/A321, E170/E190, CRJ, 2024 to date) plus ASRS, 337 MB, sequential-scan retrieval (`SIYANA_SKIP_VECTOR_INDEX=1`). Transaction pooler on port 6543 for IPv4 hosts; keep the API pool small (`SIYANA_DB_POOL_SIZE`). |
 | Model weights | GitHub release `models-v1` | Fetched on first use by `services/common/artefacts.py`; override the base URL with `SIYANA_ARTEFACT_BASE`. |
+
+The corpus stays current without anyone touching it: `.github/workflows/ingest-weekly.yml` pulls the previous week of SDRS every Monday, embeds it, re-runs the recurrence scan, watchlist and schedule (dispatch it by hand with a `from`/`to` range to backfill); `.github/workflows/keepalive.yml` probes readiness every 10 minutes.
 
 Set `ANTHROPIC_API_KEY` on the API host to switch the judge from the embedding fallback to
 claude-sonnet-4-6; `/health/ready` reports which judge, backend and auth mode are active. Set

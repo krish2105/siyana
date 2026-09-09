@@ -14,19 +14,19 @@ Every claim links to something you can open.
 
 | URL | What you get |
 |---|---|
-| https://siyana-six.vercel.app | Control room: 24 fleet tails, 268 open defects, 185 signatures, 8 drafts, RUL watchlist, hangar Gantt with the licence-shortage finding |
+| https://siyana-six.vercel.app | Control room: 24 fleet tails, 218 open defects in the last 90 days (corpus current to 7 Sep 2026, refreshed weekly by GitHub Actions), 255 signatures, 14 drafts awaiting sign-off, RUL watchlist, hangar Gantt with the licence-shortage finding |
 | https://siyana-six.vercel.app/pitch | Pitch page with live counts pulled from the API |
 | https://siyana-api.onrender.com/docs | OpenAPI reference; `/health/ready` reports corpus counts, judge, backend and auth mode |
 | https://github.com/krish2105/siyana | Public repository, CI badge, release `models-v1` with the trained weights |
 
-Verified on 2026-09-09: Lighthouse on the live site scores 93 / 100 / 100 / 100 (desktop) and 90 / 100 / 100 / 100 (360 px mobile, simulated 4G) with zero layout shift; CI is green; the weekly ingest workflow ran against production; `GET /fleet/summary` returns the fleet; `POST /daleel/judge` on a pasted snag returns 20 neighbours, a verdict and an evidence id; the Gantt shows *Short 18 h of B1.1 on day 2*.
+Verified on 2026-09-09: Lighthouse on the live site scores 93 / 100 / 100 / 100 (desktop) and 90 / 100 / 100 / 100 (360 px mobile, simulated 4G) with zero layout shift; CI is green; the weekly ingest workflow ran against production; `GET /fleet/summary` returns the fleet; `POST /daleel/judge` on a pasted snag returns 20 neighbours, a verdict and an evidence id; the Gantt shows *Short 31 h of B1.1 on day 2: 115 h due, 84 h rostered*; the weekly ingest workflow backfilled January to August 2026 and runs every Monday.
 
 ## Where the points went
 
 **Deployed MVP, minus 16.**
 - The API runs on Render's free 512 MB plan. Vision inference (`SIYANA_ENABLE_NAZAR=0`) and the 400 MB ATA classifier (`SIYANA_ATA_CLASSIFIER=0`) are switched off there; both run locally and in Docker Compose. A paid plan needs a card on the Render account, which only you can add. (-8)
 - Cold start after 15 minutes idle is about 30 s; the uptime workflow pings every 10 minutes to hide it, and the first judge call downloads the ONNX model (-2).
-- The database is a dedicated `siyana` schema inside your existing free Supabase project, sized to the narrow-body corpus (107k of 150k snags, no ANN index). Free Supabase projects pause after a week without traffic; the uptime workflow's readiness call keeps it active. (-4)
+- The database is a dedicated `siyana` schema inside your existing free Supabase project, holding the narrow-body corpus (132k snags including the 2026 backfill, 337 MB, no ANN index; retrieval is a sequential scan of about a second). Free Supabase projects pause after a week without traffic; the uptime workflow's readiness call keeps it active. (-4)
 - The detector is trained on stand-in imagery (mAP 0.43). (-2)
 
 **SaaS ready, minus 36.**
